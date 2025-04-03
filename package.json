@@ -1,5 +1,11 @@
 {
   "devDependencies": {
-    "chrome-types": "^0.1.346"
+    "@types/node": "^22.14.0",
+    "@types/webpack": "^5.28.5",
+    "chrome-types": "^0.1.346",
+    "copy-webpack-plugin": "^13.0.0",
+    "ts-loader": "^9.5.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
   }
 }
