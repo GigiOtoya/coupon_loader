@@ -14,5 +14,6 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "types": ["chrome-types", "node"]
-  }
+  },
+  "exclude": ["webpack.config.ts"]
 }
