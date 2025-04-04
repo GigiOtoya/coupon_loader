@@ -3,7 +3,6 @@
     "target": "ES2016",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "outDir": "dist",
     "rootDir": "src",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -14,6 +13,5 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "types": ["chrome-types", "node"]
-  },
-  "exclude": ["webpack.config.ts"]
+  }
 }
