@@ -9,6 +9,7 @@
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --mode development --watch --devtool inline-source-map"
   }
 }
