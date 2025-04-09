@@ -10,7 +10,7 @@
     "48": "images/48x48.png",
     "128": "images/128x128.png"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "tabs"],
   "action": {
     "default_title": "Load Coupons",
     "default_popup": "popup/popup.html"
