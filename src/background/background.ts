@@ -1,26 +1,26 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeText({ text: "OFF" });
-  chrome.action.disable();
+  // chrome.action.disable();
 });
 
-chrome.tabs.onActivated.addListener((activeInfo) => {
-  const url = "https://www.shoprite.com";
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  const domain = "https://www.shoprite.com";
   const sub = "digital-coupon";
 
-  chrome.tabs.onUpdated.addListener(async () => {
-    try {
-      const tab = await chrome.tabs.get(activeInfo.tabId);
-      const match = tab.url?.startsWith(url) && tab.url?.includes(sub, url.length);
+  const tab = await chrome.tabs.get(activeInfo.tabId);
 
-      if (match) {
+  if (tab.url?.startsWith(domain)) {
+    chrome.tabs.onUpdated.addListener(async () => {
+      const tab = await chrome.tabs.get(activeInfo.tabId);
+
+      if (tab.url?.includes(sub, domain.length)) {
+        console.log(tab.url);
         chrome.action.enable();
         chrome.action.setBadgeText({ text: "ON" });
       } else {
         chrome.action.disable();
         chrome.action.setBadgeText({ text: "OFF" });
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  });
+    });
+  }
 });
