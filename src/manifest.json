@@ -10,8 +10,11 @@
     "48": "images/48x48.png",
     "128": "images/128x128.png"
   },
-  "permissions": ["activeTab", "scripting", "tabs"],
-  "host_permissions": ["https://www.shoprite.com/*"],
+  "permissions": ["activeTab", "scripting", "tabs", "webNavigation"],
+  "host_permissions": [
+    "https://www.shoprite.com/*",
+    "https://shop-rite-web-prod.azurewebsites.net/?cfrom=menuicon&v=1744349249936"
+  ],
   "action": {
     "default_title": "Load Coupons",
     "default_popup": "popup/popup.html"

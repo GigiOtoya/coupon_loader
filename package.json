@@ -11,5 +11,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --mode development --watch --devtool inline-source-map"
+  },
+  "dependencies": {
+    "tldts": "^7.0.0"
   }
 }
