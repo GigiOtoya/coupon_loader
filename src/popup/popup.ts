@@ -1,8 +1,6 @@
-import { parse } from "tldts";
-
 const urls: { [key: string]: string } = {
-  "https://www.shoprite.com/sm/pickup/rsid/3000/digital-coupon?cfrom=homenavigation": "shoprite",
-  "https://www.shoprite.com/sm/pickup/rsid/3000/digital-coupon?cfrom=menuicon": "shoprite",
+  "https://www.shoprite.com/sm/planning/rsid/812/digital-coupon?cfrom=homenavigation": "shoprite",
+  "https://www.shoprite.com/sm/planning/rsid/812/digital-coupon?cfrom=menuicon": "shoprite",
   "https://stopandshop.com/savings/coupons/browse": "stopandshop",
 };
 
@@ -37,7 +35,7 @@ actionBtn?.addEventListener("click", async () => {
     if (!matchingFrame.hostName) {
       return;
     }
-    chrome.scripting.executeScript({
+    await chrome.scripting.executeScript({
       target: { tabId: tab.id, frameIds: [matchingFrame.id] },
       files: ["/content/content.js"],
     });
@@ -45,5 +43,6 @@ actionBtn?.addEventListener("click", async () => {
       action: "load",
       domain: targetFrames[matchingFrame.hostName],
     });
+    console.log("Injecting into frame ID:", matchingFrame.id);
   }
 });
