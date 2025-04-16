@@ -4,3 +4,8 @@ export type srCoupon = {
 };
 
 export type ssCoupon = {};
+
+export type URLpattern = {
+  pattern: (url: URL) => boolean;
+  store: string;
+};
