@@ -1,4 +1,4 @@
-import storeMethods from "../stores/storeMethods";
+import { storeMethods } from "../stores/storeUtils";
 
 function loadCoupons(store: string): Promise<void> {
   if (storeMethods[store]) {
@@ -7,10 +7,10 @@ function loadCoupons(store: string): Promise<void> {
   return Promise.resolve();
 }
 
-function handleMessage(message: { action: string; domain: string }) {
+function handleMessage(message: { action: string; store: string }) {
   if (message.action === "load") {
     (async () => {
-      await loadCoupons(message.domain);
+      await loadCoupons(message.store);
     })();
   }
   return undefined;

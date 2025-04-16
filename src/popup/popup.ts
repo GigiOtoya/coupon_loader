@@ -1,13 +1,4 @@
-const urls: { [key: string]: string } = {
-  "https://www.shoprite.com/sm/planning/rsid/812/digital-coupon?cfrom=homenavigation": "shoprite",
-  "https://www.shoprite.com/sm/planning/rsid/812/digital-coupon?cfrom=menuicon": "shoprite",
-  "https://stopandshop.com/savings/coupons/browse": "stopandshop",
-};
-
-const targetFrames: { [key: string]: string } = {
-  "stopandshop.com": "stopandshop",
-  "shop-rite-web-prod.azurewebsites.net": "shoprite",
-};
+import { urlPatterns } from "../stores/storeUtils";
 
 const actionBtn: HTMLButtonElement | null = document.querySelector("#action-btn");
 actionBtn?.addEventListener("click", async () => {
@@ -16,33 +7,33 @@ actionBtn?.addEventListener("click", async () => {
     return;
   }
 
-  if (tab.url && tab.url in urls) {
+  const url = new URL(tab.url);
+  const targetUrl = urlPatterns.find((pattern) => pattern.pattern(url));
+  if (targetUrl) {
     const frames = await chrome.webNavigation.getAllFrames({ tabId: tab.id });
     if (!frames) {
       return;
     }
 
-    let matchingFrame = { id: 0, hostName: "" };
-    for (const frame of frames) {
-      const hostName = new URL(frame.url).hostname;
-      if (hostName in targetFrames) {
-        matchingFrame = { id: frame.frameId, hostName };
-        break;
-      }
-    }
-
-    console.log(matchingFrame);
-    if (!matchingFrame.hostName) {
+    const matchingFrame = frames.find(
+      (frame) => new URL(frame.url).hostname === targetUrl.targetFrame
+    );
+    if (!matchingFrame) {
       return;
     }
+    const target = {
+      id: matchingFrame.frameId,
+      store: targetUrl.store,
+    };
+
     await chrome.scripting.executeScript({
-      target: { tabId: tab.id, frameIds: [matchingFrame.id] },
+      target: { tabId: tab.id, frameIds: [target.id] },
       files: ["/content/content.js"],
     });
     chrome.tabs.sendMessage(tab.id, {
       action: "load",
-      domain: targetFrames[matchingFrame.hostName],
+      store: target.store,
     });
-    console.log("Injecting into frame ID:", matchingFrame.id);
+    console.log(`Injecting into frame ID:${target.id} for ${target.store}`);
   }
 });

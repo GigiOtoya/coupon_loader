@@ -1,17 +1,4 @@
-import { URLpattern } from "../types";
-
-const urlPatterns: URLpattern[] = [
-  {
-    pattern: (url) =>
-      url.hostname === "www.shoprite.com" && url.pathname.includes("digital-coupon"),
-    store: "shoprite",
-  },
-  {
-    pattern: (url) =>
-      url.hostname === "stopandshop.com" && url.pathname.includes("/savings/coupons/browse"),
-    store: "stopandshop",
-  },
-];
+import { urlPatterns } from "../stores/storeUtils";
 
 chrome.runtime.onInstalled.addListener(() => {
   toggle(false);
@@ -24,6 +11,9 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  if (changeInfo.status === "loading") {
+    toggle(false);
+  }
   if (changeInfo.status === "complete") {
     handleTabChanges(tab);
   }
@@ -36,9 +26,9 @@ const handleTabChanges = (tab: chrome.tabs.Tab) => {
   }
 
   const url = new URL(tab.url);
-  const valid = urlPatterns.find((pattern) => pattern.pattern(url));
+  const validUrl = urlPatterns.find((pattern) => pattern.pattern(url));
 
-  if (valid) {
+  if (validUrl) {
     toggle(true);
   } else {
     toggle(false);

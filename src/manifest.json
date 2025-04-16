@@ -13,7 +13,8 @@
   "permissions": ["activeTab", "scripting", "tabs", "webNavigation"],
   "host_permissions": [
     "https://www.shoprite.com/*",
-    "https://shop-rite-web-prod.azurewebsites.net/?cfrom=menuicon&v=1744349249936"
+    "https://shop-rite-web-prod.azurewebsites.net/?cfrom=menuicon&v=1744349249936",
+    "https://stopandshop.com/*"
   ],
   "action": {
     "default_title": "Load Coupons",
