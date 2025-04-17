@@ -1,3 +1,5 @@
+import { delay, randomInt } from "../content/utils";
+
 const stopandshop = async () => {
   const selectors = {
     container: "ul.tile-list",
@@ -31,8 +33,11 @@ const stopandshop = async () => {
   let showMore = document.querySelector<HTMLButtonElement>(selectors.loadMore);
 
   while (showMore) {
+    container.scrollIntoView({ behavior: "smooth", block: "end" });
+    await delay(200 + randomInt());
     showMore.click();
     itemCount = await loadItems(itemCount);
+    await delay(500 + randomInt(200, 800));
     showMore = document.querySelector<HTMLButtonElement>(selectors.loadMore);
     console.log("loading...");
   }

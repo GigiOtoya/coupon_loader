@@ -37,6 +37,7 @@ const shoprite = async () => {
   }
   if (show.innerText.includes("Show All")) {
     show.click();
+    await delay(randomInt());
   }
   await loadCoupons();
 
