@@ -1,4 +1,4 @@
-import { srCoupon } from "../types";
+import { SRCoupon } from "../types";
 import { delay, randomInt } from "../content/utils";
 
 const shoprite = async () => {
@@ -10,19 +10,17 @@ const shoprite = async () => {
     page: "div.page-number",
   };
   const loadCoupons = async () => {
-    const coupons: srCoupon[] = Array.from(document.querySelectorAll(selectors.coupon))
-      .map((item): srCoupon | null => {
+    const coupons: SRCoupon[] = Array.from(document.querySelectorAll(selectors.coupon))
+      .map((item): SRCoupon | null => {
         const p: HTMLParagraphElement | null = item.querySelector(selectors.p);
         const a: HTMLAnchorElement | null = item.querySelector(selectors.a);
         return p && a ? { p: p, a: a } : null;
       })
       .filter((item) => item !== null);
 
-    let notLoaded = coupons.length;
     for (const coupon of coupons) {
-      // coupon.a.click();
+      coupon.a.click();
       console.log(`${coupon.p.innerText} loaded`);
-      notLoaded--;
       await delay(randomInt());
     }
     console.log("All coupons loaded");

@@ -1,9 +1,9 @@
-export type srCoupon = {
+export type SRCoupon = {
   p: HTMLParagraphElement;
   a: HTMLAnchorElement;
 };
 
-export type ssCoupon = {};
+export type SSCoupon = {};
 
 export type URLpattern = {
   pattern: (url: URL) => boolean;
